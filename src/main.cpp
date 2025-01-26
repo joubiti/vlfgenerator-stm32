@@ -6,11 +6,11 @@ volatile std::int32_t j = 0;
 
 
 int main(){
-    clock_initialize();
+    Clock::initialize();
 
     while(1){
         j++;
-        delay_ms(1000);
+        Clock::delay_ms(1000);
     }
     
     return 0;
