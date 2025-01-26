@@ -51,4 +51,27 @@ void clock_initialize(void){
     RCC->CFGR &= ~RCC_CFGR_SW;
     RCC->CFGR |= 2 << RCC_CFGR_SW_Pos;
     while(!(RCC->CFGR & (2 << RCC_CFGR_SWS_Pos)));
+    SystemCoreClockUpdate();
+    SysTick_Config(64000);
+    __enable_irq();
+}
+
+volatile std::uint32_t ticks;
+
+extern "C" void SysTick_Handler()
+{
+  ticks++;
+}
+
+void delay_ms(std::uint32_t milliseconds)
+{
+  std::uint32_t start = ticks;
+  std::uint32_t end = start + milliseconds;
+
+  if (end < start) 
+  {
+    while (ticks > start); 
+  }
+
+  while (ticks < end);
 }

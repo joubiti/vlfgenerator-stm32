@@ -1,5 +1,5 @@
 {
-    "cortex-debug.variableUseNaturalFormat": false,
+    "cortex-debug.variableUseNaturalFormat": true,
     "C_Cpp.default.compileCommands": "c:\\Users\\pc\\Desktop\\Project\\vlfgenerator-stm32\\builddir/compile_commands.json",
     "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
     "files.associations": {

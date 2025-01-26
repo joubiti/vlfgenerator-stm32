@@ -10,8 +10,8 @@ BUILD_DIR = build
 
 # Flags
 MCU_FLAGS = -mcpu=cortex-m0plus -mthumb
-CFLAGS = $(MCU_FLAGS) -std=c11 -g -gdwarf-2 $(INCLUDES)
-CXXFLAGS = $(MCU_FLAGS) -std=c++17 -g -gdwarf-2 -fno-exceptions -fno-rtti $(INCLUDES)
+CFLAGS = $(MCU_FLAGS) -O0 -std=c11 -g -gdwarf-2 $(INCLUDES)
+CXXFLAGS = $(MCU_FLAGS) -O0 -std=c++17 -g -gdwarf-2 -fno-exceptions -fno-rtti $(INCLUDES)
 LDFLAGS = $(MCU_FLAGS) -Wl,--gc-sections -specs=nano.specs -T STM32G070RBTx_FLASH.ld -lc -lm -lnosys
 
 # Include Paths (Add CMSIS or HAL paths here)
