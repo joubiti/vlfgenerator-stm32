@@ -1,6 +1,7 @@
 #include "stm32g0xx.h"
 #include "clock.h"
 #include "led.h"
+#include "uart.h"
 #include <cstdint>
 
 volatile std::int32_t j = 0;
