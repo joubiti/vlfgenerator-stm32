@@ -24,7 +24,7 @@ class UART{
     UART(uart_periph_nbr uart_id, uart_baudrate_opts uart_bdrate);
     uart_periph_status write(const std::uint8_t* data, std::uint8_t nb_of_bytes);
     uart_periph_status read(std::uint8_t* buf, std::uint8_t nb_of_bytes);
-    uart_periph_nbr uart_id;
+    uart_periph_nbr uart_periph_id;
     uart_baudrate_opts uart_bdrate;
     uart_periph_status uart_status;
 

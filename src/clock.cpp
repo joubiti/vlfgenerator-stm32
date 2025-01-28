@@ -2,6 +2,8 @@
 #include <cstdint>
 #include "stm32g0xx.h"
 #include <stdbool.h>
+#include <atomic>
+#include <stdatomic.h>
 
 
 void Clock::enable_HSI(){
@@ -78,11 +80,11 @@ void Clock::initialize(){
 }
 
 
-volatile static std::uint32_t ticks;
+static std::atomic<std::uint32_t> ticks{0};
 
 extern "C" void SysTick_Handler()
 {
-  ticks++;
+  ticks = ticks + 1;
 }
 
 void Clock::delay_ms(std::uint32_t ms)
