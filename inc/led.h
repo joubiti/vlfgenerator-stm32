@@ -2,9 +2,9 @@
 #define LED_H
 
 
-class OnboardLED{
+class heartbeatLed{
     public:
-    OnboardLED();
+    void initialize();
     void toggle();
     void set();
     void clear();

@@ -5,7 +5,6 @@
 #include <atomic>
 #include <stdatomic.h>
 
-
 void Clock::enable_HSI(){
   // enable HSI clock 
   RCC->CR |= (RCC_CR_HSION);

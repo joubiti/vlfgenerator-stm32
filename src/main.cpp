@@ -5,10 +5,11 @@
 #include <cstdint>
 
 volatile std::int32_t j = 0;
-OnboardLED led;
+heartbeatLed led;
 
 int main(){
     Clock::initialize();
+    led.initialize();
     
     while(1){
         led.toggle();

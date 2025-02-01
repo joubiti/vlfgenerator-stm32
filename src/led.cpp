@@ -1,7 +1,7 @@
 #include "led.h"
 #include "stm32g0xx.h"
 
-OnboardLED::OnboardLED(){
+void heartbeatLed::initialize(){
     // turn on peripheral clock
     RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
     // set output mode for PA5
@@ -11,14 +11,14 @@ OnboardLED::OnboardLED(){
     GPIOA->ODR |= GPIO_ODR_OD5;
 }
 
-void OnboardLED::toggle(){
+void heartbeatLed::toggle(){
     GPIOA->ODR ^= GPIO_ODR_OD5;
 }
 
-void OnboardLED::set(){
+void heartbeatLed::set(){
     GPIOA->ODR |= GPIO_ODR_OD5;
 }
 
-void OnboardLED::clear(){
+void heartbeatLed::clear(){
     GPIOA->ODR &= ~GPIO_ODR_OD5;
 }
