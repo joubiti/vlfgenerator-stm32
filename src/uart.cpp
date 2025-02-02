@@ -40,7 +40,7 @@ void UART::initialize(uart_periph_nbr uart_id, uart_baudrate_opts){
     LL_UART->CR1 |= (USART_CR1_UE);
 }
 
-uart_periph_status UART::write(const std::uint8_t* data, std::uint8_t nb_of_bytes){
+uart_periph_status UART::write(const std::uint8_t* data, std::uint8_t nb_of_bytes) const{
     // send idle frame as first transmission
     LL_UART->CR1 |= (USART_CR1_TE);
     for(std::uint8_t i = 0; i < nb_of_bytes; i++){

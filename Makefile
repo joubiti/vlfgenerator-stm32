@@ -16,7 +16,7 @@ LDFLAGS = $(MCU_FLAGS) -Wl,--gc-sections -specs=nano.specs -T STM32G070RBTx_FLAS
 INCLUDES = -ICMSIS/Device/ST/STM32G0xx/Include -ICMSIS/Include -Iinc
 
 # Files
-SOURCES = startup_stm32g070xx.s src/system_stm32g0xx.c src/main.cpp src/clock.cpp src/led.cpp src/uart.cpp
+SOURCES = startup_stm32g070xx.s src/system_stm32g0xx.c src/main.cpp src/led.cpp src/uart.cpp src/mcal.cpp
 TARGET = $(BUILD_DIR)/output.elf
 
 all: $(TARGET)
