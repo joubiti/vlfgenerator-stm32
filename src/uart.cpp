@@ -70,3 +70,16 @@ uart_periph_status UART::write(const std::uint8_t* data, std::uint8_t nb_of_byte
     // for now, always return OK
     return UART_OK;
 }
+
+
+uart_periph_status UART::read(std::uint8_t* buf, std::uint8_t nb_of_bytes) const {
+    // search for start bit
+    LL_UART->CR1 |= (USART_CR1_RE);
+    for(std::uint8_t i = 0; i < nb_of_bytes; i++){
+        while(!(LL_UART->ISR & (USART_ISR_RXNE_RXFNE)));
+        // read data into buffer
+        buf[i] = LL_UART->RDR;
+    }
+    LL_UART->CR1 &= ~(USART_CR1_RE);
+    return UART_OK;
+}
