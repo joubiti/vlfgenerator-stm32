@@ -1,5 +1,5 @@
 #include "uart.h"
-
+#include "mcal.h"
 
 namespace
 {
@@ -72,11 +72,18 @@ uart_periph_status UART::write(const std::uint8_t* data, std::uint8_t nb_of_byte
 }
 
 
-uart_periph_status UART::read(std::uint8_t* buf, std::uint8_t nb_of_bytes) const {
+uart_periph_status UART::read(std::uint8_t* buf, std::uint8_t nb_of_bytes, std::uint32_t timeout_ms) const {
     // search for start bit
     LL_UART->CR1 |= (USART_CR1_RE);
     for(std::uint8_t i = 0; i < nb_of_bytes; i++){
-        while(!(LL_UART->ISR & (USART_ISR_RXNE_RXFNE)));
+        auto cur_time = mcal::clock::get_ticks();
+        while((!(LL_UART->ISR & (USART_ISR_RXNE_RXFNE)))){
+            if((mcal::clock::get_ticks() - cur_time) > timeout_ms){
+                // clean-up
+                LL_UART->CR1 &= ~(USART_CR1_RE);
+                return UART_TIMEOUT;
+            }
+        };
         // read data into buffer
         buf[i] = LL_UART->RDR;
     }
