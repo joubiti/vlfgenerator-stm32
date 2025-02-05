@@ -21,12 +21,13 @@ int main(){
     
     while(1){
         led.toggle();
-        // uart1.write(arr, sizeof(arr));
-        if(uart1.read(buf, sizeof(buf), 100) == UART_OK){
-            uart1.write(buf_ack, 2);
+        uart_periph_status status;
+        status = uart1.read(buf, sizeof(buf), 100);
+        if(status == UART_OK){
+            // do something
+            led.clear();
         }
-
-        mcal::clock::delay(MAIN_LOOP_FREQUENCY);
+        // mcal::clock::delay(MAIN_LOOP_FREQUENCY);
     }
     
     return 0;
