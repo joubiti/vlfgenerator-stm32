@@ -56,10 +56,10 @@ void UART::initialize(uart_periph_nbr uart_id, std::uint32_t uart_bdrate){
     LL_UART->CR1 |= (USART_CR1_UE);
 }
 
-uart_periph_status UART::write(const std::uint8_t* data, std::uint8_t nb_of_bytes) const{
+uart_periph_status UART::write(const std::uint8_t* data, std::uint16_t nb_of_bytes) const{
     // send idle frame as first transmission
     LL_UART->CR1 |= (USART_CR1_TE);
-    for(std::uint8_t i = 0; i < nb_of_bytes; i++){
+    for(std::uint16_t i = 0; i < nb_of_bytes; i++){
         // busy-wait until data register not full
         while(!(LL_UART->ISR & (USART_ISR_TXE_TXFNF)));
         // write data
@@ -72,10 +72,10 @@ uart_periph_status UART::write(const std::uint8_t* data, std::uint8_t nb_of_byte
 }
 
 
-uart_periph_status UART::read(std::uint8_t* buf, std::uint8_t nb_of_bytes, std::uint32_t timeout_ms) const {
+uart_periph_status UART::read(std::uint8_t* buf, std::uint16_t nb_of_bytes, std::uint32_t timeout_ms) const {
     // search for start bit
     LL_UART->CR1 |= (USART_CR1_RE);
-    for(std::uint8_t i = 0; i < nb_of_bytes; i++){
+    for(std::uint16_t i = 0; i < nb_of_bytes; i++){
         auto cur_time = mcal::clock::get_ticks();
         while((!(LL_UART->ISR & (USART_ISR_RXNE_RXFNE)))){
             if((mcal::clock::get_ticks() - cur_time) > timeout_ms){

@@ -2,6 +2,7 @@
 #include "led.h"
 #include "mcal.h"
 #include "uart.h"
+#include "log.h"
 #include <cstdint>
 
 
@@ -13,6 +14,8 @@ std::uint8_t buf_nack[2] = {0x33, 0x44};
 
 heartbeatLed led;
 UART uart1;
+logging log_module(uart1);
+std::uint32_t counter(0);
 
 int main(){
     mcal::init();
@@ -20,14 +23,10 @@ int main(){
     uart1.initialize(UART_1, 115200);
     
     while(1){
+        counter ++;
         led.toggle();
-        uart_periph_status status;
-        status = uart1.read(buf, sizeof(buf), 100);
-        if(status == UART_OK){
-            // do something
-            led.clear();
-        }
-        // mcal::clock::delay(MAIN_LOOP_FREQUENCY);
+        log_module.info("Counter value: %d", counter);
+        mcal::clock::delay(MAIN_LOOP_FREQUENCY);
     }
     
     return 0;
